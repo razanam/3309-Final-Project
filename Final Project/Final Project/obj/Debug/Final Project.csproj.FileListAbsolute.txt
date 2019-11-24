@@ -1,0 +1,30 @@
+C:\Users\RSA\Documents\Fall 2019\CIS 3309\Murach C# 2015 Exercises\Final Project\Final Project\obj\Debug\Final Project.csprojAssemblyReference.cache
+C:\Users\RSA\Documents\Fall 2019\CIS 3309\Murach C# 2015 Exercises\Final Project\Final Project\obj\Debug\Final_Project.frmBookCDDVDShop.resources
+C:\Users\RSA\Documents\Fall 2019\CIS 3309\Murach C# 2015 Exercises\Final Project\Final Project\obj\Debug\Final_Project.Properties.Resources.resources
+C:\Users\RSA\Documents\Fall 2019\CIS 3309\Murach C# 2015 Exercises\Final Project\Final Project\obj\Debug\Final Project.csproj.GenerateResource.cache
+C:\Users\RSA\Documents\Fall 2019\CIS 3309\Murach C# 2015 Exercises\Final Project\Final Project\obj\Debug\Final Project.csproj.CoreCompileInputs.cache
+C:\Users\RSA\Documents\Fall 2019\CIS 3309\Murach C# 2015 Exercises\Final Project\Final Project\bin\Debug\Final Project.exe.config
+C:\Users\RSA\Documents\Fall 2019\CIS 3309\Murach C# 2015 Exercises\Final Project\Final Project\bin\Debug\Final Project.exe
+C:\Users\RSA\Documents\Fall 2019\CIS 3309\Murach C# 2015 Exercises\Final Project\Final Project\bin\Debug\Final Project.pdb
+C:\Users\RSA\Documents\Fall 2019\CIS 3309\Murach C# 2015 Exercises\Final Project\Final Project\obj\Debug\Final Project.exe
+C:\Users\RSA\Documents\Fall 2019\CIS 3309\Murach C# 2015 Exercises\Final Project\Final Project\obj\Debug\Final Project.pdb
+C:\Users\wdfig\Downloads\Final Project\Final Project\Final Project\bin\Debug\Final Project.exe.config
+C:\Users\wdfig\Downloads\Final Project\Final Project\Final Project\bin\Debug\Final Project.exe
+C:\Users\wdfig\Downloads\Final Project\Final Project\Final Project\bin\Debug\Final Project.pdb
+C:\Users\wdfig\Downloads\Final Project\Final Project\Final Project\obj\Debug\Final Project.csprojAssemblyReference.cache
+C:\Users\wdfig\Downloads\Final Project\Final Project\Final Project\obj\Debug\Final_Project.frmBookCDDVDShop.resources
+C:\Users\wdfig\Downloads\Final Project\Final Project\Final Project\obj\Debug\Final_Project.Properties.Resources.resources
+C:\Users\wdfig\Downloads\Final Project\Final Project\Final Project\obj\Debug\Final Project.csproj.GenerateResource.cache
+C:\Users\wdfig\Downloads\Final Project\Final Project\Final Project\obj\Debug\Final Project.csproj.CoreCompileInputs.cache
+C:\Users\wdfig\Downloads\Final Project\Final Project\Final Project\obj\Debug\Final Project.exe
+C:\Users\wdfig\Downloads\Final Project\Final Project\Final Project\obj\Debug\Final Project.pdb
+C:\Users\RSA\Documents\Fall 2019\CIS 3309\Murach C# 2015 Exercises\Final Project\Final Project\Final Project\bin\Debug\Final Project.exe.config
+C:\Users\RSA\Documents\Fall 2019\CIS 3309\Murach C# 2015 Exercises\Final Project\Final Project\Final Project\bin\Debug\Final Project.exe
+C:\Users\RSA\Documents\Fall 2019\CIS 3309\Murach C# 2015 Exercises\Final Project\Final Project\Final Project\bin\Debug\Final Project.pdb
+C:\Users\RSA\Documents\Fall 2019\CIS 3309\Murach C# 2015 Exercises\Final Project\Final Project\Final Project\obj\Debug\Final Project.csprojAssemblyReference.cache
+C:\Users\RSA\Documents\Fall 2019\CIS 3309\Murach C# 2015 Exercises\Final Project\Final Project\Final Project\obj\Debug\Final_Project.frmBookCDDVDShop.resources
+C:\Users\RSA\Documents\Fall 2019\CIS 3309\Murach C# 2015 Exercises\Final Project\Final Project\Final Project\obj\Debug\Final_Project.Properties.Resources.resources
+C:\Users\RSA\Documents\Fall 2019\CIS 3309\Murach C# 2015 Exercises\Final Project\Final Project\Final Project\obj\Debug\Final Project.csproj.GenerateResource.cache
+C:\Users\RSA\Documents\Fall 2019\CIS 3309\Murach C# 2015 Exercises\Final Project\Final Project\Final Project\obj\Debug\Final Project.csproj.CoreCompileInputs.cache
+C:\Users\RSA\Documents\Fall 2019\CIS 3309\Murach C# 2015 Exercises\Final Project\Final Project\Final Project\obj\Debug\Final Project.exe
+C:\Users\RSA\Documents\Fall 2019\CIS 3309\Murach C# 2015 Exercises\Final Project\Final Project\Final Project\obj\Debug\Final Project.pdb
