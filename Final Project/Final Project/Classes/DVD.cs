@@ -15,6 +15,7 @@ namespace Final_Project.Classes
     [Serializable()]
     class DVD : Product
     {
+        //dvd attributes
         private string leadActor; //lead actor string   
         private DateTime releaseDate; //release date stored as a datetime object from datetimepicker on form
         private int runTime; //int runtime, should be less than 240 and greater than 0
