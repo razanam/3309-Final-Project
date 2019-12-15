@@ -34,7 +34,7 @@ namespace Final_Project.Classes
             f.lblCIS.Visible = true;
             f.lblCIS.Enabled = true;
             base.Display(f);
-            f.txtBookCISCISArea.Text = cisArea;
+            f.txtBookCISCISArea.Text = cisArea.ToString();
             
         }  // end Display 
 

@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.OleDb;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -18,7 +19,7 @@ namespace Final_Project
 
         Product p; //temp ref for products
         private ProductList productList; //our list of products
-
+        ProductDB pdb = new ProductDB();// Creates new productDB object
         public frmBookCDDVDShop()
         {
             InitializeComponent();
@@ -27,7 +28,7 @@ namespace Final_Project
         private void FrmBookCDDVDShop_Load(object sender, EventArgs e)
         {
             //read from file and set productlist to saved data if it exists/create new productlist if there is no previous data
-            SFManager.readFromFile(ref productList, "ourFile.dat");
+         //  SFManager.readFromFile(ref productList, "ourFile.dat");
 
             //button tooltips
             toolTipHints.SetToolTip(btnCreateBook, "Click button to create new book");
@@ -126,20 +127,82 @@ namespace Final_Project
             bool temp = Validator.validateUPC(txtProductUPCSearch.Text); //first make sure the format is correct
             if (temp)
             {
+                bool j; // boolean object reference for return
+                string pstring; // Product string updated upon product DB search call.
 
-                 p = productList.find(Convert.ToInt32(txtProductUPCSearch.Text)); //search our list for this upc
-                if (p == null) //not found
+                //p = productList.find(Convert.ToInt32(txtProductUPCSearch.Text)); //search our list for this upc
+                Product k; 
+                OleDbDataReader odb = pdb.SelectProductFromProduct(Convert.ToInt32(txtProductUPCSearch.Text), out j, out pstring);
+                //MessageBox.Show(pstring);
+                if (!j) //not found
                 {
                     MessageBox.Show("Product not found");
                     txtProductUPCSearch.Clear();
                     txtProductUPCSearch.Focus();
 
-                }
-                else //found -- call display method to show attrs on form
+                } // Creates a ne product to dislay in form.
+                else
                 {
-                    p.Display(this);
-                    FormController.searchForm(this);
-                    txtProductUPCSearch.Clear();
+                    string[] attributes = pstring.Split('\n'); // splits product attributes into  array
+                    for (int i = 0; i < attributes.Length; i++)
+                    {
+                        attributes[i] = attributes[i].Trim('\r');
+                    }
+                    string ptype = attributes[4]; // gets the product type from this attribute and then creates new product to display in form
+
+                    if (ptype == "Book")
+                    {
+                        string left = attributes[5].Substring(0, 3);
+                        string right = attributes[5].Substring(3);
+
+                        k = new Book(Convert.ToInt32(attributes[0]), Convert.ToDecimal(attributes[1]), attributes[2], Convert.ToInt32(attributes[3]),
+                            left, right, attributes[6], Convert.ToInt32(attributes[7]));
+                        k.Display(this);
+                        FormController.searchForm(this);
+                        txtProductUPCSearch.Clear();
+                    }
+                    else if (ptype == "BookCIS")
+                    {
+                        string left = attributes[5].Substring(0, 3);
+                        string right = attributes[5].Substring(3);
+
+                        k = new BookCIS(Convert.ToInt32(attributes[0]), Convert.ToDecimal(attributes[1]), attributes[2], Convert.ToInt32(attributes[3]),
+                            left, right, attributes[6], Convert.ToInt32(attributes[7]), attributes[8]);
+                        k.Display(this);
+                        FormController.searchForm(this);
+                        txtProductUPCSearch.Clear();
+                    }
+                    else if (ptype == "DVD")
+                    {
+
+
+                        k = new DVD(Convert.ToInt32(attributes[0]), Convert.ToDecimal(attributes[1]), attributes[2], Convert.ToInt32(attributes[3]),
+                            attributes[5], DateTime.Parse(attributes[6]), Convert.ToInt32(attributes[7]));
+                        k.Display(this);
+                        FormController.searchForm(this);
+                        txtProductUPCSearch.Clear();
+
+                    }
+                    else if (ptype == "CDOrchestra")
+                    {
+                        k = new CDOrchestra(Convert.ToInt32(attributes[0]), Convert.ToDecimal(attributes[1]), attributes[2], Convert.ToInt32(attributes[3]),
+                            attributes[5], attributes[6], attributes[7]);
+                        k.Display(this);
+                        FormController.searchForm(this);
+                        txtProductUPCSearch.Clear();
+
+                    }
+                    else if (ptype == "CDChamber")
+                    {
+                        k = new CDChamber(Convert.ToInt32(attributes[0]), Convert.ToDecimal(attributes[1]), attributes[2], Convert.ToInt32(attributes[3]),
+                            attributes[5], attributes[6], attributes[7]);
+                        k.Display(this);
+                        FormController.searchForm(this);
+                        txtProductUPCSearch.Clear();
+
+                    }
+
+
 
                 }
             }
@@ -161,25 +224,32 @@ namespace Final_Project
                 && Validator.validateTitle(txtProductTitle.Text) && Validator.validateIntNumber(txtProductQuantity.Text);
             if (correct) //next check each if the upc entered is not already taken (unique)
             {
-                Product t = productList.find(Convert.ToInt32(txtProductUPC.Text));
-                if (t == null) //not found == means unique == ok to continue
+                bool j;
+                string pstring;
+                OleDbDataReader odb = pdb.SelectProductFromProduct(Convert.ToInt32(txtProductUPC.Text), out j, out pstring);
+
+                
+                if (!j) //not found == means unique == ok to continue
                 {
                     //check each product types' specific attr formats depending on the product type
-                    //create the product if format is ok and add it to the list
+                    //create the product if format is ok and add it to the database
 
                     if (i == 1)
                     {
-
+                        // validation is correct the the boolean would be true and would add to the datatbase
                         bool temp = Validator.validateName(txtBookAuthor.Text) && Validator.validateISBN(txtBookISBNLeft.Text) &&
                             Validator.validateISBN(txtBookISBNRight.Text) && Validator.validateIntNumber(txtBookPages.Text);
                         if (temp)
                         {
                             Book book = new Book(Convert.ToInt32(txtProductUPC.Text), Convert.ToDecimal(txtProductPrice.Text), txtProductTitle.Text, Convert.ToInt32(txtProductQuantity.Text),
                                 txtBookISBNLeft.Text, txtBookISBNRight.Text, txtBookAuthor.Text, Convert.ToInt32(txtBookPages.Text));
-                            productList.add(book);
+                            //productList.add(book);
                             MessageBox.Show("Book Added to Library");
+                           
+                            // Using Frank's method in PrductDB to add to the library
+                            pdb.InsertProduct(Convert.ToInt32(txtProductUPC.Text), Convert.ToDecimal(txtProductPrice.Text), txtProductTitle.Text, Convert.ToInt32(txtProductQuantity.Text), "Book");
+                            pdb.InsertBook(Convert.ToInt32(txtProductUPC.Text), Convert.ToInt32(txtBookISBNLeft.Text+txtBookISBNRight.Text), txtBookAuthor.Text, Convert.ToInt32(txtBookPages.Text));
                             FormController.resetForm(this);
-
                         }
                         else
                         {
@@ -195,8 +265,13 @@ namespace Final_Project
                         {
                             BookCIS book = new BookCIS(Convert.ToInt32(txtProductUPC.Text), Convert.ToDecimal(txtProductPrice.Text), txtProductTitle.Text, Convert.ToInt32(txtProductQuantity.Text),
                                 txtBookISBNLeft.Text, txtBookISBNRight.Text, txtBookAuthor.Text, Convert.ToInt32(txtBookPages.Text), txtBookCISCISArea.Text);
-                            productList.add(book);
+                           // productList.add(book);
                             MessageBox.Show("Book Added to Library");
+
+                            pdb.InsertProduct(Convert.ToInt32(txtProductUPC.Text), Convert.ToDecimal(txtProductPrice.Text), txtProductTitle.Text, Convert.ToInt32(txtProductQuantity.Text), "BookCIS");
+                            pdb.InsertBook(Convert.ToInt32(txtProductUPC.Text), Convert.ToInt32(txtBookISBNLeft.Text + txtBookISBNRight.Text), txtBookAuthor.Text, Convert.ToInt32(txtBookPages.Text));
+                            pdb.InsertBookCIS(Convert.ToInt32(txtProductUPC.Text), txtBookCISCISArea.Text);
+
                             FormController.resetForm(this);
 
                         }
@@ -215,8 +290,12 @@ namespace Final_Project
                         {
                             DVD dvd = new DVD(Convert.ToInt32(txtProductUPC.Text), Convert.ToDecimal(txtProductPrice.Text), txtProductTitle.Text, Convert.ToInt32(txtProductQuantity.Text),
                                 txtDVDLeadActor.Text, txtDVDReleaseDate.Value, Convert.ToInt32(txtDVDRunTime.Text));
-                            productList.add(dvd);
+                           // productList.add(dvd);
                             MessageBox.Show("DVD Added to Library");
+
+                            pdb.InsertProduct(Convert.ToInt32(txtProductUPC.Text), Convert.ToDecimal(txtProductPrice.Text), txtProductTitle.Text, Convert.ToInt32(txtProductQuantity.Text), "DVD");
+                            pdb.InsertDVD(Convert.ToInt32(txtProductUPC.Text), txtDVDLeadActor.Text, txtDVDReleaseDate.Value, Convert.ToInt32(txtDVDRunTime.Text));
+
                             FormController.resetForm(this);
 
                         }
@@ -234,8 +313,12 @@ namespace Final_Project
                         {
                             CDOrchestra cd = new CDOrchestra(Convert.ToInt32(txtProductUPC.Text), Convert.ToDecimal(txtProductPrice.Text), txtProductTitle.Text, Convert.ToInt32(txtProductQuantity.Text),
                                 txtCDClassicalLabel.Text, txtCDClassicalArtists.Text, txtCDOrchestraConductor.Text);
-                            productList.add(cd);
+                           // productList.add(cd);
                             MessageBox.Show("CD Added to Library");
+                            pdb.InsertProduct(Convert.ToInt32(txtProductUPC.Text), Convert.ToDecimal(txtProductPrice.Text), txtProductTitle.Text, Convert.ToInt32(txtProductQuantity.Text), "CDOrchestra");
+                            pdb.InsertCDClassical(Convert.ToInt32(txtProductUPC.Text), txtCDClassicalLabel.Text, txtCDClassicalArtists.Text);
+                            pdb.InsertCDOrchestra(Convert.ToInt32(txtProductUPC.Text), txtCDOrchestraConductor.Text);
+
                             FormController.resetForm(this);
 
                         }
@@ -254,8 +337,13 @@ namespace Final_Project
                         {
                             CDChamber cd = new CDChamber(Convert.ToInt32(txtProductUPC.Text), Convert.ToDecimal(txtProductPrice.Text), txtProductTitle.Text, Convert.ToInt32(txtProductQuantity.Text),
                                 txtCDClassicalLabel.Text, txtCDClassicalArtists.Text, txtCDChamberInstrumentList.Text);
-                            productList.add(cd);
+                            //productList.add(cd);
                             MessageBox.Show("CD Added to Library");
+
+                            pdb.InsertProduct(Convert.ToInt32(txtProductUPC.Text), Convert.ToDecimal(txtProductPrice.Text), txtProductTitle.Text, Convert.ToInt32(txtProductQuantity.Text), "CDChamber");
+                            pdb.InsertCDClassical(Convert.ToInt32(txtProductUPC.Text), txtCDClassicalLabel.Text, txtCDClassicalArtists.Text);
+                            pdb.InsertCDChamber(Convert.ToInt32(txtProductUPC.Text), txtCDChamberInstrumentList.Text);
+
                             FormController.resetForm(this);
 
                         }
@@ -287,37 +375,35 @@ namespace Final_Project
 
             //check what is visible to know the type of object we're dealing with and set i accordingly
             //delete the object from the list
-
+            //Per Frank he is okay with our method of update and not using the update method in product DB. We basically let use update 
+            //everything other than the UPC so a new entry is made when user hits save and deletes the previous entry. 
+            //
             if (txtBookCISCISArea.Visible) 
             {
                 i = 2;
-                int del = p.ProductUPC;
-                productList.delete(del);
+                pdb.Delete(Convert.ToInt32(txtProductUPC.Text));
             }
             else if (grpBook.Visible)
             {
                 i = 1;
-                int del = p.ProductUPC;
-                productList.delete(del);
+                pdb.Delete(Convert.ToInt32(txtProductUPC.Text));
+
             }
             
             else if (grpDVD.Visible)
             {
                 i = 3;
-                int del = p.ProductUPC;
-                productList.delete(del);
+                pdb.Delete(Convert.ToInt32(txtProductUPC.Text));
             }
             else if (txtCDOrchestraConductor.Visible)
             {
                 i = 4;
-                int del = p.ProductUPC;
-                productList.delete(del);
+                pdb.Delete(Convert.ToInt32(txtProductUPC.Text));
             }
             else if (txtCDChamberInstrumentList.Visible)
             {
                 i = 5;
-                int del = p.ProductUPC;
-                productList.delete(del);
+                pdb.Delete(Convert.ToInt32(txtProductUPC.Text));
             }
             
         }
@@ -325,15 +411,14 @@ namespace Final_Project
         //this happens when you click delete
         private void BtnDelete_Click(object sender, EventArgs e)
         {
-            int del = p.ProductUPC;
-            productList.delete(del);
+            pdb.Delete(Convert.ToInt32(txtProductUPC.Text));
             FormController.resetForm(this);
         }
 
         //we need to write out our list to the serializable file on exiting
         private void BtnExit_Click(object sender, EventArgs e)
         {
-            SFManager.writeToFile(productList, "ourFile.dat");
+           // SFManager.writeToFile(productList, "ourFile.dat");
             this.Close();
         }
     }

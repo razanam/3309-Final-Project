@@ -632,6 +632,12 @@ namespace Final_Project
             this.txtProductUPCSearch.Size = new System.Drawing.Size(141, 22);
             this.txtProductUPCSearch.TabIndex = 10;
             // 
+            // toolTipHints
+            // 
+            this.toolTipHints.AutoPopDelay = 5000;
+            this.toolTipHints.InitialDelay = 0;
+            this.toolTipHints.ReshowDelay = 100;
+            // 
             // btnClearForm
             // 
             this.btnClearForm.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnClearForm.BackgroundImage")));

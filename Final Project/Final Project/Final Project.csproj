@@ -23,6 +23,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -56,6 +57,7 @@
     <Compile Include="Classes\FormController.cs" />
     <Compile Include="Classes\GlobalClass.cs" />
     <Compile Include="Classes\Product.cs" />
+    <Compile Include="Classes\ProductDB.cs" />
     <Compile Include="Classes\ProductList.cs" />
     <Compile Include="Classes\SFManager.cs" />
     <Compile Include="Classes\Validator.cs" />
