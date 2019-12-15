@@ -121,7 +121,7 @@ namespace Final_Project
         }
 
         //this is what happens when you click search
-        
+        //use output of productdb query to build an object to then display its attributes on the form
         private void BtnSearchUPC_Click(object sender, EventArgs e)
         {
             bool temp = Validator.validateUPC(txtProductUPCSearch.Text); //first make sure the format is correct
@@ -218,6 +218,7 @@ namespace Final_Project
         }
 
         //this is what happens when we try to save an object
+        //validate text box attributes then insert into the database based on type (which parts of form are enabled)
         private void BtnSave_Click(object sender, EventArgs e)
         {
             //first check that all product attrs have the correct formats
