@@ -121,7 +121,7 @@ namespace Final_Project
         }
 
         //this is what happens when you click search
-
+        
         private void BtnSearchUPC_Click(object sender, EventArgs e)
         {
             bool temp = Validator.validateUPC(txtProductUPCSearch.Text); //first make sure the format is correct
@@ -131,7 +131,8 @@ namespace Final_Project
                 string pstring; // Product string updated upon product DB search call.
 
                 //p = productList.find(Convert.ToInt32(txtProductUPCSearch.Text)); //search our list for this upc
-                Product k; 
+                Product k; //used to create an object after learning which type we have
+                //get table from database to read row attributes for our product
                 OleDbDataReader odb = pdb.SelectProductFromProduct(Convert.ToInt32(txtProductUPCSearch.Text), out j, out pstring);
                 //MessageBox.Show(pstring);
                 if (!j) //not found
